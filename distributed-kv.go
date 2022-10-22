@@ -82,7 +82,10 @@ func (r *GroupcacheImp) Start() {
 	r.Handler = r.Peers
 	// 注册peer的处理，挂在gin上
 	r.HttpServer.Use(func(c *gin.Context) {
-		r.Handler.ServeHTTP(c.Writer, c.Request)
+		if strings.HasPrefix(c.Request.URL.Path, "/_groupcache/") {
+			r.Handler.ServeHTTP(c.Writer, c.Request)
+			c.Abort()
+		}
 	})
 }
 
