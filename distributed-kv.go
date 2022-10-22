@@ -111,6 +111,7 @@ func (g *GroupcacheImp) SetUpGroup() {
 				rw.WriteHeader(http.StatusOK)
 				rw.Write(dest)
 			}
+			c.Abort()
 		}
 	})
 }
